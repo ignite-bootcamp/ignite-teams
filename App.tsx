@@ -1,10 +1,5 @@
-import { StatusBar } from 'expo-status-bar'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Groups } from './src/screens/groups'
 
 export default function App() {
-  return (
-    <SafeAreaProvider>
-      <StatusBar />
-    </SafeAreaProvider>
-  )
+  return <Groups />
 }

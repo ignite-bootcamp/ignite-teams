@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { ThemeProvider } from 'styled-components/native'
-import { Groups } from './src/screens/groups'
+import { Groups } from './src/screens/Groups'
 import theme from '@theme/index'
 import {
   useFonts,

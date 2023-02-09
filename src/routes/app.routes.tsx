@@ -4,7 +4,13 @@ import { Groups } from '@screens/Groups'
 import { Players } from '@screens/Players'
 import { NewGroup } from '@screens/NewGroup'
 
-const { Navigator, Screen } = createNativeStackNavigator()
+type StackRoutes = {
+  groups: undefined
+  new: undefined
+  players: undefined
+}
+
+const { Navigator, Screen } = createNativeStackNavigator<StackRoutes>()
 
 export function AppRoutes() {
   return (

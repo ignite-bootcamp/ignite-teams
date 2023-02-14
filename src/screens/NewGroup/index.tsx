@@ -7,6 +7,8 @@ import { Input } from '@components/Input'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { groupCraete } from '@storage/group/groupCreate'
+import { AppError } from '@utils/AppError'
+import { Alert } from 'react-native'
 
 export function NewGroup() {
   const navigation = useNavigation()
@@ -17,7 +19,11 @@ export function NewGroup() {
       await groupCraete(groupName)
       navigation.navigate('players', { group: groupName })
     } catch (error) {
-      console.log(error)
+      if (error instanceof AppError) {
+        Alert.alert('Novo Grupo', error.message)
+      } else {
+        Alert.alert('Novo Grupo', 'Não foi possível criar um novo grupo')
+      }
     }
   }
 

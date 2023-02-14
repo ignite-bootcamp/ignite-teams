@@ -6,13 +6,19 @@ import { Highlight } from '@components/Highlight'
 import { Input } from '@components/Input'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
+import { groupCraete } from '@storage/group/groupCreate'
 
 export function NewGroup() {
   const navigation = useNavigation()
   const [groupName, setGroupName] = useState('')
 
-  function handleNew() {
-    navigation.navigate('players', { group: groupName })
+  async function handleNew() {
+    try {
+      await groupCraete(groupName)
+      navigation.navigate('players', { group: groupName })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

@@ -9,10 +9,9 @@ import { PlayerCard } from '@components/PlayerCard'
 import { useRoute } from '@react-navigation/native'
 import { playerAddByGroup } from '@storage/player/playerAddByGroup'
 import { playersGetByGroupAndTeam } from '@storage/player/playerGetByGroupAndTeam'
-import { playersGetByGroup } from '@storage/player/playersGetByGroup'
 import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO'
 import { AppError } from '@utils/AppError'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Alert, FlatList } from 'react-native'
 import { Container, Form, HeaderList, NumberOfPlayers } from './styles'
 
@@ -43,7 +42,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group)
-      const players = await playersGetByGroup(group)
+      await fetchPlayersByTeam()
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Nova pessoa', error.message)
@@ -54,7 +53,7 @@ export function Players() {
     }
   }
 
-  async function fetchPlayersByTeam() {
+  const fetchPlayersByTeam = useCallback(async () => {
     try {
       const playersByTeam = await playersGetByGroupAndTeam(group, team)
       setPlayers(playersByTeam)
@@ -64,7 +63,11 @@ export function Players() {
         'Não foi possivel carregar as pessoas do time selecionado',
       )
     }
-  }
+  }, [group, team])
+
+  useEffect(() => {
+    fetchPlayersByTeam()
+  }, [fetchPlayersByTeam])
 
   return (
     <Container>
@@ -79,7 +82,7 @@ export function Players() {
           autoCorrect={false}
         />
 
-        <ButtonIcon icon="add" />
+        <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
 
       <HeaderList>
@@ -100,9 +103,9 @@ export function Players() {
       </HeaderList>
       <FlatList
         data={players}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <PlayerCard name={item} onRemove={() => {}} />
+          <PlayerCard name={item.name} onRemove={() => {}} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não há pessoas nesse time" />

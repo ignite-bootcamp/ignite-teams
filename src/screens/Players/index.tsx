@@ -50,6 +50,8 @@ export function Players() {
         console.log(error)
         Alert.alert('Nova pessoa', 'Não foi possível adicionar')
       }
+    } finally {
+      setPlayerName('')
     }
   }
 
@@ -80,6 +82,9 @@ export function Players() {
           onChangeText={setPlayerName}
           placeholder="Nome da pessoa"
           autoCorrect={false}
+          value={playerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
 
         <ButtonIcon icon="add" onPress={handleAddPlayer} />

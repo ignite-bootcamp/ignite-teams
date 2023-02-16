@@ -11,7 +11,7 @@ export async function playerRemoveByGroup(playerName: string, group: string) {
     )
 
     const players = JSON.stringify(filteredStorage)
-    await AsyncStorage.setItem(`@ignite-teams:players-${group}`, players)
+    await AsyncStorage.setItem(`@ignite-teams:player-${group}`, players)
   } catch (error) {
     throw new AppError('playerRemoveByGroup: erro ao remover jogador do grupo ')
   }

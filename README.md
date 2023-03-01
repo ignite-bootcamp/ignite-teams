@@ -2,7 +2,7 @@
 <p align='center'>App built during Ignite Course from @Rocketseat</p>
 
 ## 💄 Layout
-- [Layout no Figma](Link pro figma)
+- [Layout no Figma](https://www.figma.com/file/VFk9kWwXsIV4G9wjA7qAAi/Ignite-Teams-(Community)?node-id=37%3A6&t=HyM2ziroHa0aRvHw-1)
 
 ## 🛠 Technologies
 
